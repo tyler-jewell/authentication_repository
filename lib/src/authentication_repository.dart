@@ -190,6 +190,7 @@ class AuthenticationRepository {
   final CacheClient _cache;
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  late firebase_auth.ConfirmationResult confirmationResult;
 
   /// Whether or not the current environment is web
   /// Should only be overriden for testing purposes. Otherwise,
@@ -223,11 +224,11 @@ class AuthenticationRepository {
   /// Creates a new user with the provided [phoneNumber].
   ///
   /// Throws a [SignInWithPhoneNumberFailure] if an exception occurs.
-  Future<firebase_auth.ConfirmationResult> signInWithPhoneNumber(
+  Future<void> signInWithPhoneNumber(
     String phoneNumber,
   ) async {
     try {
-      return await _firebaseAuth.signInWithPhoneNumber(phoneNumber);
+      confirmationResult = await _firebaseAuth.signInWithPhoneNumber(phoneNumber);
     } on FirebaseAuthException catch (e) {
       throw  SignInWithPhoneNumberFailure(e.toString());
     } catch (e) {
@@ -240,14 +241,13 @@ class AuthenticationRepository {
   /// Throws a [ConfirmResultFailure] if an exception occurs.
   Future<void> confirmPhoneAuth(
     String smsCode,
-    firebase_auth.ConfirmationResult confirmationResult,
   ) async {
     try {
       await confirmationResult.confirm(smsCode);
     } on FirebaseAuthException catch (e) {
-      throw  SignInWithPhoneNumberFailure(e.toString());
+      throw  ConfirmResultFailure(e.toString());
     } catch (e) {
-      throw  SignInWithPhoneNumberFailure(e.toString());
+      throw  ConfirmResultFailure(e.toString());
     }
   }
 
