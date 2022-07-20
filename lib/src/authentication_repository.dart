@@ -224,13 +224,14 @@ class AuthenticationRepository {
   ///
   /// Throws a [SignInWithPhoneNumberFailure] if an exception occurs.
   Future<firebase_auth.ConfirmationResult> signInWithPhoneNumber(
-      String phoneNumber) async {
+    String phoneNumber,
+  ) async {
     try {
       return await _firebaseAuth.signInWithPhoneNumber(phoneNumber);
-    } on FirebaseAuthException catch (_) {
-      throw SignInWithPhoneNumberFailure();
-    } catch (_) {
-      throw const SignInWithPhoneNumberFailure();
+    } on FirebaseAuthException catch (e) {
+      throw  SignInWithPhoneNumberFailure(e.toString());
+    } catch (e) {
+      throw  SignInWithPhoneNumberFailure(e.toString());
     }
   }
 
@@ -243,10 +244,10 @@ class AuthenticationRepository {
   ) async {
     try {
       await confirmationResult.confirm(smsCode);
-    } on FirebaseAuthException catch (_) {
-      throw SignInWithPhoneNumberFailure();
-    } catch (_) {
-      throw const SignInWithPhoneNumberFailure();
+    } on FirebaseAuthException catch (e) {
+      throw  SignInWithPhoneNumberFailure(e.toString());
+    } catch (e) {
+      throw  SignInWithPhoneNumberFailure(e.toString());
     }
   }
 
