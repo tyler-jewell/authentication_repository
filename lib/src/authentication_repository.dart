@@ -227,11 +227,15 @@ class AuthenticationRepository {
     String phoneNumber,
   ) async {
     try {
-      confirmationResult = await _firebaseAuth.signInWithPhoneNumber(phoneNumber);
+      confirmationResult = await _firebaseAuth.signInWithPhoneNumber(
+        phoneNumber,
+      );
     } on firebase_auth.FirebaseAuthException catch (e) {
-      throw  SignInWithPhoneNumberFailure('SignInWithPhoneNumberFailure + FirebaseAuthException: ${e.toString()}');
+      final error = 'SignInWithPhoneNumberFailure: ${e.toString()}';
+      throw  SignInWithPhoneNumberFailure(error);
     } catch (e) {
-      throw  SignInWithPhoneNumberFailure('SignInWithPhoneNumberFailure: ${e.toString()}');
+      final error = 'SignInWithPhoneNumberFailure: ${e.toString()}';
+      throw  SignInWithPhoneNumberFailure(error);
     }
   }
 
