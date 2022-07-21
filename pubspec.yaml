@@ -8,15 +8,15 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  cache:
+      git:
+        url: https://github.com/tyler-jewell/cache.git
+        ref: main
   equatable: ^2.0.3
-  firebase_auth: 3.0.2
-  firebase_core: 1.13.1
+  firebase_auth: ^3.0.2
+  firebase_core: ^1.13.1
   flutter:
     sdk: flutter
-  cache:
-    git:
-      url: https://github.com/tyler-jewell/cache.git
-      ref: main
   google_sign_in: ^5.4.0
   meta: ^1.7.0
   very_good_analysis: ^2.4.0
