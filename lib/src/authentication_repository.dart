@@ -229,9 +229,9 @@ class AuthenticationRepository {
     try {
       confirmationResult = await _firebaseAuth.signInWithPhoneNumber(phoneNumber);
     } on firebase_auth.FirebaseAuthException catch (e) {
-      throw  SignInWithPhoneNumberFailure(e.toString());
+      throw  SignInWithPhoneNumberFailure('SignInWithPhoneNumberFailure + FirebaseAuthException: ${e.toString()}');
     } catch (e) {
-      throw  SignInWithPhoneNumberFailure(e.toString());
+      throw  SignInWithPhoneNumberFailure('SignInWithPhoneNumberFailure: ${e.toString()}');
     }
   }
 
