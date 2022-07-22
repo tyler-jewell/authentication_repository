@@ -231,9 +231,11 @@ class AuthenticationRepository {
         phoneNumber,
       );
     } on firebase_auth.FirebaseAuthException catch (e) {
+      print(e);
       final error = 'SignInWithPhoneNumberFailure: ${e.toString()}';
       throw  SignInWithPhoneNumberFailure(error);
     } catch (e) {
+      print(e);
       final error = 'SignInWithPhoneNumberFailure: ${e.toString()}';
       throw  SignInWithPhoneNumberFailure(error);
     }
